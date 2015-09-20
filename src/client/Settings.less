@@ -1,0 +1,61 @@
+@iconpath: '/icons/';
+
+.icon (@icon) {
+    width: 18px;
+    height: 16px;
+    background-size: cover;
+    background: no-repeat url('@{iconpath}@{icon}');
+}
+
+.DC-Icons {
+    &-Calendar {
+        .icon("Calendar.png");
+    }
+    &-Camera {
+        .icon("Camera.png");
+    }
+    &-Contacts {
+        .icon("Contacts.png");
+    }
+    &-Location {
+        .icon("Location.png");
+    }
+    &-Microphone {
+        .icon("Microphone.png");
+    }
+    &-Phone {
+        .icon("Phone.png");
+    }
+    &-SMS {
+        .icon("SMS.png");
+    }
+    &-Sensors {
+        .icon("Sensors.png");
+    }
+}
+
+.DC-Settings {
+    width: 100%;
+    display: table;
+    &-Item {
+        padding-top:5px;
+        padding-bottom: 5px;
+
+        &-Icon {
+            padding-left: 15px;
+            width: 60px;
+            display: table-cell;
+        }
+
+        &-Name{
+            font-size: 16px;
+            display: table-cell;
+            width: 300px;
+        }
+
+        &-Switch {
+            display: table-cell;
+            width: 60px;
+        }
+    }
+}
