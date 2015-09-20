@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import * as _ from 'lodash';
+import moment from 'moment';
 
 import Header from './Header';
 import Settings from './Settings';
@@ -24,6 +25,10 @@ class App extends Component {
         };
 
         this.toggleSwitch = this.toggleSwitch.bind(this);
+    }
+
+    componentDidMount () {
+        console.log(moment().format('YYYY-MM-DD hh:mm:ss'));
     }
 
     toggleSwitch (index) {

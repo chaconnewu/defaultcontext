@@ -1,7 +1,7 @@
-// var ClosureCompilerPlugin = require('webpack-closure-compiler');
+
 var path = require('path');
 var React = require('react');
-
+// var ClosureCompilerPlugin = require('webpack-closure-compiler');
 var config = {
   entry: path.resolve(__dirname, './src/client/app.js'),
   output: {
