@@ -6,6 +6,7 @@
     "body-parser": "^1.14.0",
     "css-loader": "^0.15.6",
     "express": "^4.13.3",
+    "jquery": "^2.1.4",
     "jsx-loader": "^0.13.2",
     "less": "^2.5.1",
     "less-loader": "^2.2.0",
@@ -31,9 +32,8 @@
     "webpack-closure-compiler": "^1.0.0"
   },
   "scripts": {
-    "start": "npm run serve | npm run dev",
     "build": "webpack --progress --colors --watch",
-    "dev": "nodemon src/server/server.js"
+    "start": "nodemon src/server/server.js"
   },
   "repository": {
     "type": "git",

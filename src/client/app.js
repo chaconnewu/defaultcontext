@@ -9,19 +9,47 @@ import Footer from './Footer';
 
 import './app.less';
 
-var items = ['Calendar', 'Camera', 'Contacts', 'Location', 'Microphone', 'Phone', 'SMS', 'Sensors'];
+var items = [
+    {
+        name: 'Calendar',
+        on: true
+    },
+    {
+        name: 'Camera',
+        on: false
+    },
+    {
+        name: 'Contacts',
+        on: false
+    },
+    {
+        name: 'Location',
+        on: false
+    },
+    {
+        name: 'Microphone',
+        on: false
+    },
+    {
+        name: 'Phone',
+        on: true
+    },
+    {
+        name: 'SMS',
+        on: false
+    },
+    {
+        name: 'Sensors',
+        on: false
+    }
+];
 var ribons = ['APP PERMISSIONS', 'AD LIBRARIES'];
 
 class App extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            settings: _.map(items, function(item) {
-                return ({
-                    name: item,
-                    on: false
-                });
-            })
+            settings: items
         };
 
         this.toggleSwitch = this.toggleSwitch.bind(this);
@@ -37,11 +65,9 @@ class App extends Component {
         this.setState({
             settings: newSettings
         });
-        console.log(newSettings);
     }
 
     render () {
-
         return (
             <div className="DC-App">
                 <Header />
