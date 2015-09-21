@@ -3,7 +3,24 @@ var path = require('path');
 var bodyParser = require('body-parser')
 var http = require('http');
 var app = express();
-var Q = require('q');
+var mysql = require('mysql');
+
+var conn = mysql.createConnection({
+    host     : 'localhost',
+    user     : 'root',
+    password : '',
+    database : 'po',
+    port: '3306',
+    socketPath: '/tmp/mysql.sock'
+});
+
+conn.connect(function(err){
+    if(err){
+        console.log(err);
+        return;
+    }
+    console.log('Connection established');
+});
 
 var port = 3000;
 
@@ -20,6 +37,26 @@ app.get('/', function(req, res) {
   res.sendFile(path.join(CLIENT_DIR + '/index.html'));
 });
 
+app.post('/record', function(req, res) {
+    var userRes = req.body.settings.map(function(item) {
+        return parseInt(item);
+    });
+    userRes.push(req.body.startTime);
+    userRes.push(req.body.endTime);
+    console.log(userRes);
+
+    var fields = ['calendar', 'camera', 'contacts', 'location', 'microphone', 'phone', 'sms', 'sensors', 'start_time', 'end_time'];
+    var data = {};
+    fields.forEach(function(field, idx) {
+        data[field] = userRes[idx];
+    });
+    data['user'] = 'Yu Wu';
+    console.log(data);
+    var query = "insert into defaultcontext set ? ";
+    conn.query(query, data, function(err) {
+        if (err) throw err;
+    })
+});
 
 app.listen(port);
 console.log('The server starts on port ' + port);

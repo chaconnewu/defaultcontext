@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import * as _ from 'lodash';
+import $ from 'jquery';
 import moment from 'moment';
 
 import Header from './Header';
@@ -49,14 +50,13 @@ class App extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            settings: items
+            settings: items,
+            startTime: moment().format('YYYY-MM-DD hh:mm:ss'),
+            endTime: ''
         };
 
         this.toggleSwitch = this.toggleSwitch.bind(this);
-    }
-
-    componentDidMount () {
-        console.log(moment().format('YYYY-MM-DD hh:mm:ss'));
+        this.save = this.save.bind(this);
     }
 
     toggleSwitch (index) {
@@ -67,10 +67,27 @@ class App extends Component {
         });
     }
 
+    save () {
+        var settingConfig = _.map(this.state.settings, function(setting) {
+            return setting.on ? 1 : 0;
+        });
+
+        var finalConfig = {
+            settings: settingConfig,
+            startTime: this.state.startTime,
+            endTime: moment().format('YYYY-MM-DD hh:mm:ss')
+        };
+        $.post('/record', finalConfig)
+        .done(function () {
+            console.log('post successfully');
+        });
+        console.log(finalConfig);
+    }
+
     render () {
         return (
             <div className="DC-App">
-                <Header />
+                <Header save={ this.save }/>
                 <Ribon
                     name={ ribons[0] }
                 />
