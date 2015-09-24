@@ -180,11 +180,14 @@
 	            settings: settingItems,
 	            startTime: (0, _moment2['default'])().format('YYYY-MM-DD hh:mm:ss'),
 	            endTime: '',
+	            anon1: false,
+	            anon2: false,
 	            userID: userID
 	        };
 
 	        this.toggleSwitch = this.toggleSwitch.bind(this);
 	        this.save = this.save.bind(this);
+	        this.anonymize = this.anonymize.bind(this);
 	    }
 
 	    _createClass(App, [{
@@ -197,8 +200,22 @@
 	            });
 	        }
 	    }, {
+	        key: 'anonymize',
+	        value: function anonymize(name) {
+	            if (name === 'APP PERMISSIONS') {
+	                this.setState({
+	                    anon1: !this.state.anon1
+	                });
+	            } else {
+	                this.setState({
+	                    anon2: !this.state.anon2
+	                });
+	            }
+	        }
+	    }, {
 	        key: 'save',
 	        value: function save() {
+	            var self = this;
 	            var settingConfig = _.map(this.state.settings, function (setting) {
 	                return setting.on ? 1 : 0;
 	            });
@@ -207,14 +224,15 @@
 	                userID: this.state.userID,
 	                settings: settingConfig,
 	                startTime: this.state.startTime,
-	                endTime: (0, _moment2['default'])().format('YYYY-MM-DD hh:mm:ss')
+	                endTime: (0, _moment2['default'])().format('YYYY-MM-DD hh:mm:ss'),
+	                anonymize: [this.state.anon1 ? 1 : 0, this.state.anon2 ? 1 : 0]
 	            };
 	            console.log('here');
 	            _jquery2['default'].post('/record', finalConfig, function (data) {
 	                console.log('post successfully');
-	                window.open('https://survey.co1.qualtrics.com/SE/?SID=SV_3EJZnaLVLLqTPy5', '_self');
+	                window.open('https://survey.co1.qualtrics.com/SE/?SID=SV_3EJZnaLVLLqTPy5&userid=' + self.state.userID, '_self');
 	            });
-	            // console.log(finalConfig);
+	            console.log(finalConfig);
 	        }
 	    }, {
 	        key: 'render',
@@ -229,14 +247,16 @@
 	                _react2['default'].createElement(_Header2['default'], { save: this.save }),
 	                _react2['default'].createElement(_Banner2['default'], { appId: parseInt(id) }),
 	                _react2['default'].createElement(_Ribon2['default'], {
-	                    name: ribons[0]
+	                    name: ribons[0],
+	                    anon: this.anonymize
 	                }),
 	                _react2['default'].createElement(_Settings2['default'], {
 	                    settings: this.state.settings,
 	                    toggleSwitch: this.toggleSwitch
 	                }),
 	                _react2['default'].createElement(_Ribon2['default'], {
-	                    name: ribons[1]
+	                    name: ribons[1],
+	                    anon: this.anonymize
 	                }),
 	                _react2['default'].createElement(_Footer2['default'], null)
 	            );
@@ -60555,7 +60575,7 @@
 	                    _react2['default'].createElement(
 	                        'label',
 	                        { className: 'mdl-checkbox mdl-js-checkbox', 'for': 'checkbox-2' },
-	                        _react2['default'].createElement('input', { type: 'checkbox', id: 'checkbox-2', className: 'mdl-checkbox__input' }),
+	                        _react2['default'].createElement('input', { type: 'checkbox', id: 'checkbox-2', className: 'mdl-checkbox__input', onClick: this.props.anon.bind(null, this.props.name) }),
 	                        _react2['default'].createElement(
 	                            'span',
 	                            { className: 'mdl-checkbox__label DC-Ribon-CheckboxLabel' },

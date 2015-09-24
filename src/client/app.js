@@ -104,11 +104,14 @@ class App extends Component {
             settings: settingItems,
             startTime: moment().format('YYYY-MM-DD hh:mm:ss'),
             endTime: '',
+            anon1: false,
+            anon2: false,
             userID: userID
         };
 
         this.toggleSwitch = this.toggleSwitch.bind(this);
         this.save = this.save.bind(this);
+        this.anonymize = this.anonymize.bind(this);
     }
 
     toggleSwitch (index) {
@@ -119,7 +122,20 @@ class App extends Component {
         });
     }
 
+    anonymize (name) {
+        if (name === 'APP PERMISSIONS') {
+            this.setState({
+                anon1: !this.state.anon1
+            });
+        } else {
+            this.setState({
+                anon2: !this.state.anon2
+            });
+        }
+    }
+
     save () {
+        var self = this;
         var settingConfig = _.map(this.state.settings, function(setting) {
             return setting.on ? 1 : 0;
         });
@@ -128,14 +144,15 @@ class App extends Component {
             userID: this.state.userID,
             settings: settingConfig,
             startTime: this.state.startTime,
-            endTime: moment().format('YYYY-MM-DD hh:mm:ss')
+            endTime: moment().format('YYYY-MM-DD hh:mm:ss'),
+            anonymize: [this.state.anon1 ? 1 : 0, this.state.anon2 ? 1 : 0]
         };
         console.log('here');
         $.post('/record', finalConfig, function (data) {
             console.log('post successfully');
-            window.open('https://survey.co1.qualtrics.com/SE/?SID=SV_3EJZnaLVLLqTPy5', '_self');
+            window.open('https://survey.co1.qualtrics.com/SE/?SID=SV_3EJZnaLVLLqTPy5&userid=' + self.state.userID, '_self');
         });
-        // console.log(finalConfig);
+        console.log(finalConfig);
     }
 
     render () {
@@ -148,6 +165,7 @@ class App extends Component {
                 <Banner appId={ parseInt(id) } />
                 <Ribon
                     name={ ribons[0] }
+                    anon={ this.anonymize }
                 />
                 <Settings
                     settings={ this.state.settings }
@@ -155,6 +173,7 @@ class App extends Component {
                 />
                 <Ribon
                     name={ ribons[1] }
+                    anon={ this.anonymize }
                 />
                 <Footer />
             </div>

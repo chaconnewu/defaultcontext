@@ -10,8 +10,8 @@ class Ribon extends Component {
                     { this.props.name }
                 </div>
                 <div className="DC-Ribon-Checkbox">
-                    <label className="mdl-checkbox mdl-js-checkbox" for="checkbox-2">
-                        <input type="checkbox" id="checkbox-2" className="mdl-checkbox__input" />
+                    <label className="mdl-checkbox mdl-js-checkbox" for="checkbox-2" >
+                        <input type="checkbox" id="checkbox-2" className="mdl-checkbox__input" onClick={ this.props.anon.bind(null, this.props.name)} />
                         <span className="mdl-checkbox__label DC-Ribon-CheckboxLabel">Anonymize Data</span>
                     </label>
                 </div>

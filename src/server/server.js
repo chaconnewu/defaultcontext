@@ -51,6 +51,8 @@ app.post('/record', function(req, res) {
         data[field] = userRes[idx];
     });
     data['user'] = req.body.userID;
+    data['app'] = req.body.anonymize[0];
+    data['ads'] = req.body.anonymize[1];
     console.log(data);
     var query = "insert into defaultcontext set ? ";
     conn.query(query, data, function(err) {
