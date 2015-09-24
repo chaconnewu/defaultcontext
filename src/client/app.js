@@ -2,8 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import * as _ from 'lodash';
 import $ from 'jquery';
 import moment from 'moment';
-
+import { Router, Route, Link, Redirect } from 'react-router';
 import Header from './Header';
+import Banner from './Banner';
 import Settings from './Settings';
 import Ribon from './Ribon';
 import Footer from './Footer';
@@ -13,7 +14,7 @@ import './app.less';
 var items = [
     {
         name: 'Calendar',
-        on: true
+        on: false
     },
     {
         name: 'Camera',
@@ -33,7 +34,7 @@ var items = [
     },
     {
         name: 'Phone',
-        on: true
+        on: false
     },
     {
         name: 'SMS',
@@ -46,11 +47,55 @@ var items = [
 ];
 var ribons = ['APP PERMISSIONS', 'AD LIBRARIES'];
 
+var conditions = [
+    {
+        'Calendar': 1,
+        'Camera': 1,
+        'Contacts': 1,
+        'Location': 1,
+        'SMS': 1
+    },
+    {
+        'Calendar': 1,
+        'Location': 1,
+        'SMS': 1
+    },
+    {
+        'Camera': 1
+    },
+    {
+        'Location': 1,
+        'Sensors': 1
+    },
+    {
+
+    }
+];
 class App extends Component {
     constructor (props) {
         super(props);
+        var settingItems = items;
+
+        var { id } = this.props.params;
+        if (parseInt(id) % 3 === 2) {
+            settingItems = items.map(function(item) {
+                return {
+                    name: item.name,
+                    on: !item.on
+                }
+            });
+        } else if (parseInt(id) % 3 === 1) {
+            var bannerIdx = parseInt(id / 3);
+            settingItems = items.map(function(item) {
+                return {
+                    name: item.name,
+                    on: conditions[bannerIdx].hasOwnProperty(item.name) ? !item.on : item.on
+                }
+            });
+        }
+
         this.state = {
-            settings: items,
+            settings: settingItems,
             startTime: moment().format('YYYY-MM-DD hh:mm:ss'),
             endTime: ''
         };
@@ -85,9 +130,13 @@ class App extends Component {
     }
 
     render () {
+        var { id } = this.props.params;
+        console.log(id);
+        console.log(window.location.href);
         return (
             <div className="DC-App">
                 <Header save={ this.save }/>
+                <Banner appId={ parseInt(id) } />
                 <Ribon
                     name={ ribons[0] }
                 />
@@ -104,7 +153,21 @@ class App extends Component {
     }
 }
 
-React.render(
-    <App />,
-    document.getElementById('app')
+class Root extends Component {
+    render () {
+        return (
+            <div>
+                {this.props.children}
+            </div>
+        );
+    }
+}
+
+React.render((
+    <Router>
+        <Route path="/" component={Root}>
+            <Route path="app/:id" component={App} />
+        </Route>
+    </Router>
+    ), document.getElementById('app')
 );

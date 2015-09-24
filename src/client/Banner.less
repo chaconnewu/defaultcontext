@@ -1,0 +1,46 @@
+@appiconpath: '/appIcons/';
+
+.icon (@icon) {
+    margin-left: 15px;
+    min-height: 40px;
+    min-width: 40px;
+    width: 100%;
+    height: 100%;
+
+    background: no-repeat url('@{appiconpath}@{icon}');
+}
+
+.DC-AppIcon {
+    width: 30%;
+    display: inline-block;
+    &-Messenger {
+        .icon("Messenger.png");
+    }
+    &-MyTrip {
+        .icon("MyTrip.png");
+    }
+    &-PicTrans {
+        .icon("PicTrans.png");
+    }
+    &-HTrack {
+        .icon("HTrack.png");
+    }
+    &-Book {
+        .icon("Book.png");
+    }
+}
+
+@BannerHeight: 60px;
+
+.DC-Banner {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: 100%;
+    height: @BannerHeight;
+
+    &-AppName {
+        display: inline-block;
+        margin-left: 20px;
+        font-size: 24px;
+    }
+}
