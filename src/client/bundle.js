@@ -212,7 +212,7 @@
 	            console.log('here');
 	            _jquery2['default'].post('/record', finalConfig, function (data) {
 	                console.log('post successfully');
-	                window.open('https://survey.co1.qualtrics.com/SE/?SID=SV_3EJZnaLVLLqTPy5');
+	                window.open('https://survey.co1.qualtrics.com/SE/?SID=SV_3EJZnaLVLLqTPy5', '_self');
 	            });
 	            // console.log(finalConfig);
 	        }
