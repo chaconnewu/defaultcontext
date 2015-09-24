@@ -170,10 +170,17 @@
 	            });
 	        }
 
+	        var url = window.location.href;
+	        // console.log(url.indexOf('userid'));
+	        var useridStart = url.indexOf('userid') + 7;
+	        var rest = url.slice(useridStart);
+	        var userID = rest.slice(0, rest.indexOf('&'));
+
 	        this.state = {
 	            settings: settingItems,
 	            startTime: (0, _moment2['default'])().format('YYYY-MM-DD hh:mm:ss'),
-	            endTime: ''
+	            endTime: '',
+	            userID: userID
 	        };
 
 	        this.toggleSwitch = this.toggleSwitch.bind(this);
@@ -197,14 +204,17 @@
 	            });
 
 	            var finalConfig = {
+	                userID: this.state.userID,
 	                settings: settingConfig,
 	                startTime: this.state.startTime,
 	                endTime: (0, _moment2['default'])().format('YYYY-MM-DD hh:mm:ss')
 	            };
-	            _jquery2['default'].post('/record', finalConfig).done(function () {
+	            console.log('here');
+	            _jquery2['default'].post('/record', finalConfig, function (data) {
 	                console.log('post successfully');
+	                window.open('https://survey.co1.qualtrics.com/SE/?SID=SV_3EJZnaLVLLqTPy5');
 	            });
-	            console.log(finalConfig);
+	            // console.log(finalConfig);
 	        }
 	    }, {
 	        key: 'render',
@@ -212,7 +222,7 @@
 	            var id = this.props.params.id;
 
 	            console.log(id);
-	            console.log(window.location.href);
+
 	            return _react2['default'].createElement(
 	                'div',
 	                { className: 'DC-App' },
@@ -57550,7 +57560,7 @@
 	                _react2['default'].createElement(
 	                    'div',
 	                    { className: 'DC-Header-Text' },
-	                    'Privacy Settings'
+	                    'Permission Settings'
 	                ),
 	                _react2['default'].createElement(
 	                    'div',
@@ -57992,7 +58002,7 @@
 
 
 	// module
-	exports.push([module.id, ".DC-AppIcon {\n  width: 30%;\n  display: inline-block;\n}\n.DC-AppIcon-Messenger {\n  margin-left: 15px;\n  min-height: 40px;\n  min-width: 40px;\n  width: 100%;\n  height: 100%;\n  background: no-repeat url('/appIcons/Messenger.png');\n}\n.DC-AppIcon-MyTrip {\n  margin-left: 15px;\n  min-height: 40px;\n  min-width: 40px;\n  width: 100%;\n  height: 100%;\n  background: no-repeat url('/appIcons/MyTrip.png');\n}\n.DC-AppIcon-PicTrans {\n  margin-left: 15px;\n  min-height: 40px;\n  min-width: 40px;\n  width: 100%;\n  height: 100%;\n  background: no-repeat url('/appIcons/PicTrans.png');\n}\n.DC-AppIcon-HTrack {\n  margin-left: 15px;\n  min-height: 40px;\n  min-width: 40px;\n  width: 100%;\n  height: 100%;\n  background: no-repeat url('/appIcons/HTrack.png');\n}\n.DC-AppIcon-Book {\n  margin-left: 15px;\n  min-height: 40px;\n  min-width: 40px;\n  width: 100%;\n  height: 100%;\n  background: no-repeat url('/appIcons/Book.png');\n}\n.DC-Banner {\n  padding-top: 5px;\n  padding-bottom: 5px;\n  width: 100%;\n  height: 60px;\n}\n.DC-Banner-AppName {\n  display: inline-block;\n  margin-left: 20px;\n  font-size: 24px;\n}\n", ""]);
+	exports.push([module.id, ".DC-AppIcon {\n  margin-left: 15px;\n  margin-top: 5px;\n  width: 20%;\n  display: inline-block;\n}\n.DC-AppIcon-Messenger {\n  min-height: 40px;\n  min-width: 40px;\n  width: 100%;\n  height: 100%;\n  background: no-repeat url('/appIcons/Messenger.png');\n}\n.DC-AppIcon-MyTrip {\n  min-height: 40px;\n  min-width: 40px;\n  width: 100%;\n  height: 100%;\n  background: no-repeat url('/appIcons/MyTrip.png');\n}\n.DC-AppIcon-PicTrans {\n  min-height: 40px;\n  min-width: 40px;\n  width: 100%;\n  height: 100%;\n  background: no-repeat url('/appIcons/PicTrans.png');\n}\n.DC-AppIcon-HTrack {\n  min-height: 40px;\n  min-width: 40px;\n  width: 100%;\n  height: 100%;\n  background: no-repeat url('/appIcons/HTrack.png');\n}\n.DC-AppIcon-Book {\n  min-height: 40px;\n  min-width: 40px;\n  width: 100%;\n  height: 100%;\n  background: no-repeat url('/appIcons/Book.png');\n}\n.DC-Banner {\n  padding-top: 5px;\n  padding-bottom: 5px;\n  width: 100%;\n  height: 60px;\n}\n.DC-Banner-AppName {\n  display: inline-block;\n  font-size: 20px;\n  position: relative;\n  bottom: 10px;\n}\n", ""]);
 
 	// exports
 
@@ -60744,7 +60754,7 @@
 
 
 	// module
-	exports.push([module.id, ".DC-App {\n  width: 360px;\n  height: 640px;\n  overflow-y: scroll;\n}\n", ""]);
+	exports.push([module.id, ".DC-App {\n  width: 360px;\n  height: 540px;\n  overflow-y: scroll;\n}\n", ""]);
 
 	// exports
 

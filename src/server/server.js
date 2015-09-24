@@ -50,12 +50,13 @@ app.post('/record', function(req, res) {
     fields.forEach(function(field, idx) {
         data[field] = userRes[idx];
     });
-    data['user'] = 'Yu Wu';
+    data['user'] = req.body.userID;
     console.log(data);
     var query = "insert into defaultcontext set ? ";
     conn.query(query, data, function(err) {
         if (err) throw err;
     })
+    res.end('{"success" : "Post Successfully", "status" : 200}');
 });
 
 app.listen(port);

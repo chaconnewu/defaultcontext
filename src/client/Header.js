@@ -11,7 +11,7 @@ class Header extends Component {
         return (
             <div className="DC-Header">
                 <div className="DC-Header-Text">
-                    Privacy Settings
+                    Permission Settings
                 </div>
                 <div
                     className="DC-Header-Save"

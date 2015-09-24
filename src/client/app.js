@@ -94,10 +94,17 @@ class App extends Component {
             });
         }
 
+        var url = window.location.href;
+        // console.log(url.indexOf('userid'));
+        var useridStart = url.indexOf('userid') + 7;
+        var rest = url.slice(useridStart);
+        var userID = rest.slice(0, rest.indexOf('&'));
+
         this.state = {
             settings: settingItems,
             startTime: moment().format('YYYY-MM-DD hh:mm:ss'),
-            endTime: ''
+            endTime: '',
+            userID: userID
         };
 
         this.toggleSwitch = this.toggleSwitch.bind(this);
@@ -118,21 +125,23 @@ class App extends Component {
         });
 
         var finalConfig = {
+            userID: this.state.userID,
             settings: settingConfig,
             startTime: this.state.startTime,
             endTime: moment().format('YYYY-MM-DD hh:mm:ss')
         };
-        $.post('/record', finalConfig)
-        .done(function () {
+        console.log('here');
+        $.post('/record', finalConfig, function (data) {
             console.log('post successfully');
+            window.open('https://survey.co1.qualtrics.com/SE/?SID=SV_3EJZnaLVLLqTPy5');
         });
-        console.log(finalConfig);
+        // console.log(finalConfig);
     }
 
     render () {
         var { id } = this.props.params;
         console.log(id);
-        console.log(window.location.href);
+
         return (
             <div className="DC-App">
                 <Header save={ this.save }/>

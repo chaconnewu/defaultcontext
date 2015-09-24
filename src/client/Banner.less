@@ -1,7 +1,6 @@
 @appiconpath: '/appIcons/';
 
 .icon (@icon) {
-    margin-left: 15px;
     min-height: 40px;
     min-width: 40px;
     width: 100%;
@@ -11,7 +10,9 @@
 }
 
 .DC-AppIcon {
-    width: 30%;
+    margin-left: 15px;
+    margin-top: 5px;
+    width: 20%;
     display: inline-block;
     &-Messenger {
         .icon("Messenger.png");
@@ -40,7 +41,8 @@
 
     &-AppName {
         display: inline-block;
-        margin-left: 20px;
-        font-size: 24px;
+        font-size: 20px;
+        position: relative;
+        bottom: 10px;
     }
 }
